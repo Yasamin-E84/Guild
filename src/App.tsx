@@ -9,7 +9,7 @@ import Dashboard from './pages/Dashboard'
 export default function App() {
   return (
     <AppProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/games" element={<GameSelection />} />
