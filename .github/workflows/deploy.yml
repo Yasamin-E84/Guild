@@ -35,6 +35,14 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify build output
+        run: |
+          test -f dist/index.html
+          test -f dist/404.html
+          test -f dist/.nojekyll
+          grep -q "/Guild/assets/" dist/index.html
+          ! grep -q "src/main.tsx" dist/index.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -47,6 +55,10 @@ jobs:
 
     runs-on: ubuntu-latest
     needs: build
+
+    permissions:
+      pages: write
+      id-token: write
 
     steps:
       - name: Deploy to GitHub Pages
